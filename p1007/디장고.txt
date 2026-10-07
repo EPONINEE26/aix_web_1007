@@ -174,6 +174,7 @@ Zip
 
 
 
+path('', include('home.urls')),이병호  [오후 5:39]
 [ 1. 디렉토리 이동 ]
 cd p1007 폴더이동
 
@@ -185,6 +186,7 @@ cd spjt04
 
 [ 4. app생성 ]
 python manage.py startapp students
+python manage.py startapp home
 
 [ 5. cmd창 생성 ]
 win+r > cmd 입력후 엔터키
@@ -211,6 +213,7 @@ from django.urls import path,include
 urlpatterns = [
 path('admin/', admin.site.urls),
 path('students/', include('students.urls')),
+path('', include('home.urls')),
 ]
 
 [ 11. students > urls.py 생성 ]
@@ -222,16 +225,34 @@ urlpatterns = [
     path('swrite/', views.swrite, name='swrite'),
 ]
 
+[ 11-2. home > urls.py 생성 ]
+from django.urls import path,include
+from . import views
+
+app_name=''
+urlpatterns = [
+    path('', views.index,name='index'),
+]
+
+
 [ 12. students > views.py ]
 def swrite(request):
     return render(request,'swrite.html')
 
+[ 12-2. home > views.py ]
+from django.shortcuts import render
+
+# 메인페이지
+def index(request):
+    return render(request,'index.html')
+
+
 [ 13. students > templates 폴더생성 ]
 swrite.html 파일 생성
+
+[ 13-2. home> templates 폴더생성 ]
+index.html 파일 생성
 
 
 [ 서버종료 ]
 ctrl + c : 종료됨
-
-
-http://127.0.0.1:8000/students/swrite 
