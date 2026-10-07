@@ -38,10 +38,17 @@ dir
 clear 
 (clear 후 cd spjt01 로 변경해야함)
 cmd 창에는 python manage.py runserver만 입력하고 나머지는 terminal 에서 입력
+밖으로 빠지는 건 cd.. 
 
 
+PS C:\workspace\web\aix_web_1007> cd p1007
+PS C:\workspace\web\aix_web_1007\p1007> cd\
+PS C:\> cd workspace
+PS C:\workspace> cd web
+PS C:\workspace\web> cd aix_web_1007
+PS C:\workspace\web\aix_web_1007> cd p1007
+PS C:\workspace\web\aix_web_1007\p1007> 
 
- 
 
 
 
