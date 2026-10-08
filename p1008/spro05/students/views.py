@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from students.models import Stu
 
-def swrite(request):
+def stuscore(request):
     if request.method =='GET':
         print("GET 페이지가 로딩되었습니다.")
         return render(request,'swrite.html')

@@ -7,7 +7,7 @@
 </head>
 <body>
     <h1>학생정보입력</h1>
-    <form action="/students/swrite/" name="frm" method="post">
+    <form action="/stuscore/score_write/" name="frm" method="post">
         {% csrf_token %} <!-- 이건 무조건 있어야함 -->
         <label>이름</label>
         <input type="text" name="name" id="name"><br>
@@ -25,7 +25,6 @@
         <br>
         <input type="submit" value="저장">
         <br>
-    </form>
-    
+    </form>    
 </body>
 </html>

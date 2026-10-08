@@ -7,7 +7,7 @@
 </head>
 <body>
     <h1>학생성적입력</h1>
-    <form action="/students/swrite" name="frm" method="post">
+    <form action="/students/swrite/" name="frm" method="post">
         {% csrf_token %}
         <label>이름</label>
         <input type="text" name="name" id="name" required><br>

@@ -6,3 +6,5 @@ urlpatterns = [
     path('swrite/', views.swrite, name='swrite'),
     path('slist/', views.slist, name='slist'),
 ]
+
+
