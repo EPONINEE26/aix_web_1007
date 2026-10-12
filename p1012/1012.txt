@@ -1,0 +1,14 @@
+cd C:\workspace\web\aix_web_1007\p1012\project02
+
+cd C:\workspace\web\aix_web_1007\p1008\spro01
+
+python -m django startproject project01
+
+python manage.py runserver
+
+
+[ html에서 파이썬 데이터전달방법 ]
+1. form
+2. 파라미터
+3. 자바스크립트
+
