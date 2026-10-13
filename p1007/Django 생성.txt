@@ -1,8 +1,14 @@
+{% url students:swrite %}
+디장고 app name 을 가지고 url
+기존 것의 이름을 변경하고 새로운 것을 그래도 앱 이름을 그대로 두면 변경된 것을 찾아 처리함 
+
+
 [ 1. 디렉토리 이동 ]
 cd p1007 폴더이동
 
 [ 2. 프로젝트 생성 ]
-django-admin startproject spro01
+django-admin startproject project01
+python -m django startproject project01
 
 [ 3. 디렉토리 이동 ]
 cd spro01
@@ -16,6 +22,9 @@ win+r > cmd 입력후 엔터키
 
 [ 6. cmd창에서 디렉토리 위치 이동 ]
 cd C:\workspace\web\aix_web_1007\p1007\spjt04
+cd C:\workspace\web\aix_web_1007\p1013\project01
+
+
 
 [ 7. 서버구동 ]
 python manage.py runserver
