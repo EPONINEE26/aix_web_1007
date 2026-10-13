@@ -15,8 +15,6 @@
     </style>
 </head>
 <body>
-    {# 디장고html 주석  #}
-    {# if,for : {% %}, 변수 : {{}}  #}
     <h1>학생정보리스트</h1>
     <table>
         <tr>
@@ -30,8 +28,7 @@
         <tr>
             <td>{{stu.no}}</td>
             <td>
-                <a href='/students/sview/{{stu.no}}/'>
-                {% comment %} <a href='{% url "students:sview" stu.no %}'> {% endcomment %}
+                <a href='{% url "students:sview" stu.no %}'>
                     {{stu.name}}
                 </a>
             </td>
@@ -41,7 +38,7 @@
         </tr>
         {% endfor %}
     </table>
-
+   
     <br><br>
     <div>
         <a href='{% url "students:swrite" %}'><button type='button'>쓰기</button></a>

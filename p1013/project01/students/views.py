@@ -1,29 +1,56 @@
 from django.shortcuts import render,redirect
 from students.models import Students
 
-# 학생상세보기 - 1개 
+# 학생정보삭제
+def sdelete(request,no):
+    Students.objects.get(no=no).delete()
+    return redirect('students:slist')
 
-def sview(request, no): 
-    qs = Students.objects.get(no=no)  
-    context = {'stu': qs}  
-    return render(request, 'sview.html', context)
+# 학생정보수정페이지,저장
+def supdate(request,no):
+    if request.method == 'GET':
+        qs = Students.objects.get(no=no)
+        context = {'stu':qs}
+        return render(request, 'supdate.html', context)
+    elif request.method == 'POST':
+        # 수정부분
+        qs = Students.objects.get(no=no)
+        # 수정된 데이터
+        name = request.POST.get('name')
+        major = request.POST.get('major')
+        grade = request.POST.get('grade')
+        age = request.POST.get('age')
+        gender = request.POST.get('gender')
+        hobby = request.POST.getlist('hobby')
+        # 수정반영
+        qs.name = name
+        qs.major = major
+        qs.grade = grade
+        qs.age = age
+        qs.gender = gender
+        qs.hobby = hobby
+        qs.save()
+        return redirect('students:slist') #app_name,name방식
 
+# 학생정보상세보기 - 1개
+def sview(request,no):
+    qs = Students.objects.get(no=no)
+    context = {'stu':qs}
+    return render(request, 'sview.html',context)
 
-# 학생정보리스트 : 여러 개 
+# 학생정보리스트 - 여러개
 def slist(request):
-    # 딕셔너리 형태로 데이터를 전달함
-    qs = Students.objects.all()
-    # qs = Students.objects.all().order_by('age', 'no') # 나이와 번호로 정렬
-    # qs = Students.objects.all().order_by('no')
-    # qs = Students.objects.all().order_by('-no') # 전체가져오기, 정렬(-역순정렬)
+    # 딕셔너리 형태로 데이터를 전달함.
+    qs = Students.objects.all().order_by('-no') # 전체가져오기, 정렬(-역순정렬)
     # qs = Students.objects.get(name='홍길동') # 1개 가져오기
-    # qs = Students.objects.filter(name__contains='s') # s가 포함되어 있는 학생 찾기
-    # __contains : 포함, __endswith : 끝글자, __startswith : 첫글자 
-    # qs = Students.objects.filter(grade__gte=3) # 3학년과 같거나 3학년 이상인 학생 찾기 
-    # qs = Students.objects.filter(grade__gt=3) # 3학년 이상인 학생 찾기
-    
+    # __contains:포함, __endswith 
+    # qs = Students.objects.filter(name__contains='s') # s가 포함되어 있는 학생
+    # qs = Students.objects.filter(name__endswith='s') 
+    # gt,gte,lt,lte
+    # qs = Students.objects.filter(grade__gt=3) # 3학년이상
+
     context = {'list':qs}
-    return render(request, 'slist.html',context) 
+    return render(request, 'slist.html',context)
 
 
 

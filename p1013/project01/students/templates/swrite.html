@@ -15,8 +15,9 @@
 <body>
     <h1>학생정보입력</h1>
     <form action='/students/swrite/' name='frm' method='post'>
-        {# 디장고 주석 : {% for,if %}   {{name}} #}
         {% csrf_token %}
+        <label>번호</label>
+        <input type='text' name='no' id='no' value="{{auto}}"><br>
         <label>이름</label>
         <input type='text' name='name' id='name'><br>
         <label>학과</label>
