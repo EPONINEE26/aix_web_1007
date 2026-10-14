@@ -142,6 +142,17 @@
     }
   </style>
   <script src="https://kit.fontawesome.com/yourcode.js" crossorigin="anonymous"></script>
+  <script>
+    if('{{temp}}'=='1'){
+      alert('로그인 되었습니다.');
+      location.href='/';
+    }else if('{{temp}}'=='0'){
+      alert('아이디 또는 패스워드가 일치하지 않습니다. 다시 로그인 해주세요.')
+    }else if('{{temp}}'=='2'){
+      alert('로그아웃 되었습니다.');
+      location.href = '/';
+    }
+  </script>
 </head>
 <body>
   <div class="header">
@@ -160,9 +171,10 @@
   <div class="container">
     <div class="login-box">
       <h1>로그인</h1>
-      <form>
-        <input type="text" placeholder="아이디" class="input-box" required>
-        <input type="password" placeholder="비밀번호" class="input-box" required>
+      <form action='{% url "member:login" %}' method='post' name='loginFrm'>
+        {% csrf_token %}
+        <input type="text" placeholder="아이디" name='id' class="input-box" required>
+        <input type="password" placeholder="비밀번호" name='pw' class="input-box" required>
         <button type="submit" class="btn btn-login">로그인</button>
         <br>
         <div class="idsave">
