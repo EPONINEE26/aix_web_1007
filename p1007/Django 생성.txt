@@ -28,6 +28,8 @@ win+r > cmd 입력후 엔터키
 cd C:\workspace\web\aix_web_1007\p1007\spjt04
 cd C:\workspace\web\aix_web_1007\p1013\project01
 cd C:\workspace\web\aix_web_1007\p1014\project01
+cd C:\workspace\web\aix_web_1007\p1015\project01
+cd C:\workspace\web\aix_web_1007\p10164\project01
 
 
 [ 7. 서버구동 ]
