@@ -3,9 +3,12 @@
 <head>
 
     <meta charset="UTF-8">
-    <meta name="viewport"content="width=device-width, initial-scale=1.0">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <link rel='stylesheet' href='/static/css/style.css'>
     <title>FOREST RESOM</title>
-    <link rel='stylesheet' href='/static/css/style.css' />
+
 
 
 
@@ -60,6 +63,8 @@
             </li>
 
         </ul>
+
+
         <div class="header-right">
             {% if request.session.session_id %}
                 <a href="/member/logout/">로그아웃</a>
@@ -76,7 +81,6 @@
         </div>
 
     </div>
-
 
 </header>
 
@@ -906,4 +910,3 @@
 
 </body>
 </html>
-

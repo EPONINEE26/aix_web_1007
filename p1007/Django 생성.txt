@@ -3,8 +3,6 @@
 기존 것의 이름을 변경하고 새로운 것을 그래도 앱 이름을 그대로 두면 변경된 것을 찾아 처리함 
 
 
-세팅부분
-
 [ 디장고 순서 ]
 python -m django startproject project01
 django-admin startproject project01
@@ -31,7 +29,7 @@ index.html, main.html 가져와서 넣기
 5. 외부링크
 <link rel='stylesheet' href='/static/css/style.css'>
 
-============================================
+-----------------------------
 [ 프로그램 진행 ]
 1. app추가
 - member app 생성
@@ -49,7 +47,7 @@ path('member/', include('member.urls')),
 6. templates 생성
 7. login.html 파일 가져오기
 
-=============================================
+-----------------------------------
 [ db생성, 슈퍼관리자등록 ]
 1. migrate 생성
 2. createsuperuser 생성
@@ -72,7 +70,6 @@ path('member/', include('member.urls')),
 - input name 확인
 - id,pw,remberId 데이터가 넘어오는지 확인
 
-=================================================
 <db연결>
 - db와 연결 데이터가 있는지 확인
 - id,pw가 있으면 : 로그인성공
@@ -105,9 +102,19 @@ path('member/', include('member.urls')),
 - urls.py > mwrite/ 추가
 - view.py > mwrite
 ( 데이터 확인 )
-aix융복합인재양성과정1-전체에 메시지 보내기
 
-===================================================
+7. 회원정보수정
+- templates > mupdate.html 추가
+- urls.py / ( <str:id> )
+- views.py
+1) Member데이터 검색
+2) context 전달
+3) tel : split('-') 분리
+- mupdate.html
+1) value = '{{member.id}}'
+2) select
+3) radio
+4) checkbox
 
 
 
