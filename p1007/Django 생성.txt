@@ -3,6 +3,124 @@
 기존 것의 이름을 변경하고 새로운 것을 그래도 앱 이름을 그대로 두면 변경된 것을 찾아 처리함 
 
 
+세팅부분
+
+[ 디장고 순서 ]
+python -m django startproject project01
+django-admin startproject project01
+1. 서버세팅
+- 프로젝트 생성
+- 앱생성
+- setting.py 추가
+
+2. app추가
+- setting추가
+- urls.py
+- home>urls.py
+- home>views.py
+- templates폴더 생성 >index.html생성
+
+3. static 폴더 설정
+- static : css,js,images
+- /static/images/1.jpg 링크 : /static
+
+4. html 소스가져오기
+- home > templates 폴더에
+index.html, main.html 가져와서 넣기
+
+5. 외부링크
+<link rel='stylesheet' href='/static/css/style.css'>
+
+============================================
+[ 프로그램 진행 ]
+1. app추가
+- member app 생성
+
+2. setting.py 추가
+
+3. urls.py 추가
+path('member/', include('member.urls')),
+
+4. member > urls.py
+- app_name='member' / login/ 추가
+
+5. views.py
+
+6. templates 생성
+7. login.html 파일 가져오기
+
+=============================================
+[ db생성, 슈퍼관리자등록 ]
+1. migrate 생성
+2. createsuperuser 생성
+
+[ 로그인 프로그램 ]
+<로그인세팅>
+1. models.py class추가
+2. admin.py 추가
+3. makemigrations
+4. migrate
+5. 1명 인원 추가
+- member.csv import 시켜보기
+<로그인프로그램설계>
+1. views.py
+- get부분
+- post부분
+
+2. login.html
+- form action, method,name 확인
+- input name 확인
+- id,pw,remberId 데이터가 넘어오는지 확인
+
+=================================================
+<db연결>
+- db와 연결 데이터가 있는지 확인
+- id,pw가 있으면 : 로그인성공
+- session 로그인정보 추가
+(session_id,session_nickname)
+- index.html
+(session정보 추가)
+- 로그아웃,닉네임 부분 수정
+- id,pw가 없으면 : 로그인실패
+
+3. 로그아웃
+- urls.py 연결
+- views.py 섹션종료 ( clear )
+- login.html > temp:2 보냄
+
+4. 쿠키설정
+- response.set_cookie 설정
+- response.delete_cookie 삭제
+- request.COOKIES.get('cook_id','') 쿠키검색
+
+5. login.html 쿠키확인
+- checkbox에 추가
+{% if cook_id %}checked{% endif %}
+- inputbox에 추가
+{% if cook_id %}value={{cook_id}}{% endif %}
+
+6. 회원가입
+- index.html 링크추가
+- templates > mwrite.html 파일
+- urls.py > mwrite/ 추가
+- view.py > mwrite
+( 데이터 확인 )
+aix융복합인재양성과정1-전체에 메시지 보내기
+
+===================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
 [ 1. 디렉토리 이동 ]
 cd p1007 폴더이동
 
@@ -61,7 +179,7 @@ STATICFILES_DIRS = [
 from django.urls import path,include
 urlpatterns = [
 path('admin/', admin.site.urls),
-path('students/', include('students.urls')),
+path('/', include('students.urls')),
 path('', include('home.urls')),
 ]
 
