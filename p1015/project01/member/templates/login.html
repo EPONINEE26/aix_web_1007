@@ -22,13 +22,16 @@ LOGIN<!DOCTYPE html>
 <script type="text/javascript" src="/static/js/html5.js"></script>
 <script type="text/javascript" src="/static/js/respond.min.js"></script>
 <![endif]-->
-<script type="text/javascript">
-if('{{temp}}'=='1'){
-	alert('로그인 되었습니다.')
-	location.href='/';
-} else if ('{{temp}}'=='0'){
-	alert('아이디 또는 패스워드가 일치하지 않습니다. 다시 로그인하세요.');
-}
+<script>
+	if('{{temp}}'=='1'){
+		alert('로그인 되었습니다.')
+		location.href='/';
+	} else if ('{{temp}}'=='0'){
+		alert('아이디 또는 패스워드가 일치하지 않습니다. 다시 로그인하세요.');
+	} else if ('{{temp}}'=='2'){
+		alert('로그아웃 되었습니다.');
+		location.href='/';
+	}
 </script>
 </head>
 <body>
@@ -218,12 +221,15 @@ if('{{temp}}'=='1'){
 							<form action="/member/login/" method='post' name="loginFrm">	
 								{% csrf_token %}						
 								<ul>
-									<li><input type="text" name="id" class="loginType" onfocus="this.className='mfocus'" onblur="if (this.value.length==0) {this.className='loginType'}else {this.className='mfocusnot'}" style="ime-mode:inactive;" required /></li>
+									<li><input type="text" name="id" class="loginType" onfocus="this.className='mfocus'" style="ime-mode:inactive;" required value='{% if cookie_id %}{{cookie_id}}{% endif%}'/></li> // 공백이 있으면 안 됨!!! 
 									<li><input type="password" name="pw" class="passType" onfocus="this.className='mfocus'" onblur="if (this.value.length==0) {this.className='passType'}else {this.className='mfocusnot'}" style="ime-mode:inactive;" required /></li>
+									<script>$(".loginType").focus()</script>
 								</ul>
 							</form>
 							<div class="btn"><a onclick="loginBtn()" style="cursor: pointer;" class="sbtn">로그인</a></div>
-							<div class="chk"><input type="checkbox" id="idsave"/><label for="idsave">아이디 저장</label></div>							
+							<div class="chk">
+								<input type="checkbox" id="idsave" name="idsave" value='1'{% if cookie_id %}checked{% endif %} /><label for="idsave">아이디 저장</label></div>							
+							</form>
 							<script>
 								function loginBtn(){
 									// alert('확인')

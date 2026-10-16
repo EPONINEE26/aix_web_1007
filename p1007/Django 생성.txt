@@ -18,6 +18,7 @@ python manage.py startapp students
 python manage.py startapp home
 python -m manage.py startapp event
 python manage.py startapp member
+python manage.py startapp board
 
 python manage.py startapp customer
 
@@ -29,8 +30,7 @@ cd C:\workspace\web\aix_web_1007\p1007\spjt04
 cd C:\workspace\web\aix_web_1007\p1013\project01
 cd C:\workspace\web\aix_web_1007\p1014\project01
 cd C:\workspace\web\aix_web_1007\p1015\project01
-cd C:\workspace\web\aix_web_1007\p10164\project01
-
+cd C:\workspace\web\aix_web_1007\p1016\project01
 
 [ 7. 서버구동 ]
 python manage.py runserver
@@ -44,11 +44,17 @@ localhost:8000
 http://127.0.0.1:8000/
 
 [ 9. sjpt04> setting.py ]
+import os 입력
 INSTALLED_APPS = [
 'students',
 ]
 LANGUAGE_CODE = 'ko-kr'
 TIME_ZONE = 'Asia/Seoul'
+
+STATIC_URL = 'static/'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR,'static'),
+]
 
 
 [ 10. sjpt04> urls.py ]
