@@ -5,6 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel='stylesheet' href='/static/css/bwrite.css'>
     <title>뉴스 글쓰기</title>
+    <script>
+        if ('{{temp}}'=='1'){
+            alert('게시글이 등록되었습니다.');
+            location.href="/board/blist/";
+        } else if ('{{temp}}'=='0'){
+            alert('{{board.bno}번 게시글을 삭제합니다.}');
+            location.href="/board/blist/";
+        }     
+    </script>
 
 
 </head>
@@ -49,21 +58,13 @@
         <!-- BREADCRUMB -->
 
         <div class="breadcrumb">
-
             HOME
-
             <span>></span>
-
             FOREST
-
             <span>></span>
-
             NEWS
-
             <span>></span>
-
             WRITE
-
         </div>
 
 
@@ -71,50 +72,23 @@
 
         <div class="page-title">
 
-            <h2>
-                글쓰기
-            </h2>
-
+            <h2>글쓰기</h2>
         </div>
-
 
         <!-- =========================
              WRITE FORM
         ========================= -->
 
-        <form 
-            class="write-form"
-            action="/board/bwrite/"
-            method="post"
-            enctype="multipart/form-data"
-        >
-        {% csrf_token %}   
-
+        <form class="write-form" action="/board/bwrite/" method="post" enctype="multipart/form-data">
+        {% csrf_token %}  
 
             <!-- TITLE -->
-
             <div class="form-row">
-
-                <div class="form-label">
-
-                    제목
-
-                    <span class="required">
-                        *
-                    </span>
-
+                <div class="form-label">제목
+                    <span class="required">*</span>
                 </div>
-
-
                 <div class="form-input">
-
-                    <input
-                        type="text"
-                        name="btitle"
-                        placeholder="제목을 입력하세요."
-                        required
-                    >
-
+                    <input type="text" name="btitle" placeholder="제목을 입력하세요."required >
                 </div>
 
             </div>
@@ -124,82 +98,42 @@
 
             <div class="form-row">
 
-                <div class="form-label">
-
-                    작성자
-
-                    <span class="required">
-                        *
-                    </span>
-
+                <div class="form-label">작성자
+                    <span class="required">*</span>
                 </div>
-
-
                 <div class="form-input">
-
-                    <input
-                        type="text"
-                        name="id"
-                        class="author-input"
-                        placeholder="작성자"
-                        required
-                    >
-
+                    <input type="text" name="id" class="author-input" placeholder="작성자" required >
                 </div>
-
             </div>
-
-
-
-
-
 
             <!-- CONTENT -->
 
             <div class="form-row content-row">
-
-                <div class="form-label">
-
-                    내용
-
-                    <span class="required">
-                        *
-                    </span>
-
+                <div class="form-label">내용
+                    <span class="required">*</span>
                 </div>
 
-
                 <div class="form-input content-input">
-
                     <textarea
                         name="bcontent"
                         placeholder="내용을 입력하세요."
                         required
                     ></textarea>
-
                 </div>
-
             </div>
 
 
             <!-- FILE -->
 
             <div class="form-row">
-
-                <div class="form-label">
-                    첨부파일
-                </div>
-
-
+                <div class="form-label">첨부파일</div>
                 <div class="form-input file-input">
 
                     <input
                         type="file"
                         name="bfile"
                     >
-
                 </div>
-
             </div>
 
 
@@ -229,48 +163,22 @@
 
     <div class="footer-inner">
 
-
         <div class="footer-menu">
-
-            <a href="#">
-                회사소개
-            </a>
-
-            <a href="#">
-                오시는 길
-            </a>
-
-            <a href="#">
-                개인정보처리방침
-            </a>
-
-            <a href="#">
-                이용약관
-            </a>
-
-            <a href="#">
-                이메일무단수집거부
-            </a>
-
+            <a href="#">회사소개</a>
+            <a href="#">오시는 길</a>
+            <a href="#">개인정보처리방침</a>
+            <a href="#">이용약관</a>
+            <a href="#">이메일무단수집거부</a>
         </div>
 
 
         <div class="footer-info">
-
             포레스트 리조트<br>
-
             충청북도 제천시 백운면 금봉로 365<br>
-
             대표번호 : 043-649-6000
-
         </div>
-
-
     </div>
-
 </footer>
-
-
 </body>
 </html>
 

@@ -59,37 +59,37 @@
 <button>검색</button>
 </div>
 <!-- NEWS LIST -->
-<div class="board-wrap"><table class="board-table"><thead><tr><th>번호</th><th>제목</th><th>작성자</th><th>작성일</th><th>조회수</th></tr></thead><tbody><tr>
-<td class="number">16</td>
-<td class="subject"><a href="#">새로운 조식 메뉴와 이용요금 변경 안내</a></td>
-<td>관리자</td>
-<td>2026.09.15</td>
-<td>248</td>
-</tr><tr>
-<td class="number">15</td>
-<td class="subject"><a href="#">편안한 여행을 위한 객실 서비스 안내</a></td>
-<td>관리자</td>
-<td>2026.09.10</td>
-<td>193</td>
-</tr><tr>
-<td class="number">14</td>
-<td class="subject"><a href="#">자연 속에서 즐기는 특별한 휴식 프로그램</a></td>
-<td>관리자</td>
-<td>2026.09.05</td>
-<td>176</td>
-</tr><tr>
-<td class="number">13</td>
-<td class="subject"><a href="#">가을 시즌 특별 패키지 출시</a></td>
-<td>관리자</td>
-<td>2026.08.28</td>
-<td>152</td>
-</tr><tr>
-<td class="number">12</td>
-<td class="subject"><a href="#">더욱 편리해진 리조트 이용 안내</a></td>
-<td>관리자</td>
-<td>2026.08.20</td>
-<td>121</td>
-</tr></tbody></table></div>
+<div class="board-wrap">
+    <table class="board-table">
+        <thead>
+            <tr>
+                <th>번호</th>
+                <th>제목</th>
+                <th>작성자</th>
+                <th>작성일</th>
+                <th>조회수</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if list %} {# 게시글이 있으면 #}
+                {% for board in list %}
+                    <tr>
+                        <td class="number">{{board.bno}}</td>
+                        <td class="subject"><a href="/board/bview/{{board.bno}}/">{{board.btitle}}</a></td>
+                        <td>{{board.id}}</td>
+                        <td>{{board.bdate | date:'Y.m.d'}}</td>
+                        <td>{{board.bhit}}</td>
+                    </tr>
+                {% endfor %}
+            {% else %} {# 게시글이 없으면 #}
+                    <tr>
+                        <td colspan='5' class="number">게시글이 없습니다.</td>
+                    </tr>
+            {% endif %}
+        </tbody>
+    </table>
+</div>
+
 <!-- WRITE BUTTON -->
 <div class="write-area">
 <a class="write-btn" href="/board/bwrite/">글쓰기</a>

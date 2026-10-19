@@ -5,7 +5,9 @@ app_name='board'
 urlpatterns = [
     path('blist/', views.blist, name='blist'),
     path('bwrite/', views.bwrite, name='bwrite'),
-    path('bview/', views.bview, name='bview'),
+    path('bview/<int:bno>/', views.bview, name='bview'),
+    path('bupdate/<int:bno>/', views.bupdate, name='bupdate'),
+    path('bdelete/<int:bno>/', views.bdelete, name='bdelete'),
 ]
 
 
