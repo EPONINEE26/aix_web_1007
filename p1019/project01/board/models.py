@@ -1,4 +1,5 @@
 from django.db import models
+from member.models import Member
 
 class Board(models.Model):
     # bno = 게시판번호
@@ -11,6 +12,9 @@ class Board(models.Model):
     # bfile : 파일첨부   
     
     bno = models.AutoField(primary_key=True)
+    # Foreignkey : 다른 테이블에 primary_key등록이 되어 있는 것을 다른 테이블에서 사용할 때
+    # Board에 데이터가 등록될 때 Member에서 id값을 확인해서 있는지 체크함     
+    # member = models.ForeignKey(Member,on_delete=models.DO_NOTHING,blank=True) # DO NOTHING을 선정할 경우 null값이나 blank값을 True로 선정해야함
     id = models.CharField(max_length=30) 
     btitle = models.CharField(max_length=1000)
     bcontent = models.TextField() # 대용량 text 
@@ -21,7 +25,8 @@ class Board(models.Model):
     bindent = models.IntegerField(default=0)
     bhit = models.IntegerField(default=1)
     bdate = models.DateTimeField(auto_now=True,blank=True)
-    bfile = models.ImageField(blank=True)
+    bfile = models.ImageField(blank=True,upload_to='board') # 파일첨부할 때 upload 폴더에 업로드 
+
 
     def __str__(self):
         return f'{self.bno},{self.id},{self.btitle},{self.bcontent},{self.bstep},{self.bindent},{self.bhit},{self.bdate},{self.bfile}'

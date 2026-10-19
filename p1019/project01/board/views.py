@@ -1,5 +1,6 @@
 from django.shortcuts import render,redirect
 from board.models import Board
+from django.db.models import F,Q 
 
 # 게시글 리스트 
 def blist(request):
@@ -35,7 +36,16 @@ def bwrite(request):
 def bview(request,bno):
     # board 1개 검색 
     qs = Board.objects.get(bno=bno)
-    context = {'board':qs}
+    # qs.bhit = qs.bhit+1
+    # qs.save()
+    
+    # 데이터 1개 가져오기
+    # qs = Board.objects.filter(bno=bno).first() # .first()
+    qs = Board.objects.filter(bno=bno)
+    qs.update(bhit=F('bhit')+1) # F함수 : qs에 있는 컬럼값을 가져올 때 사용 
+    
+        
+    context = {'board':qs[0]}
     return render(request, 'bview.html',context)
 
 # 게시글 삭제
@@ -53,6 +63,20 @@ def bupdate(request,bno):
         return render(request, 'bupdate.html',context)
     
     elif request.method=="POST":
+        btitle = request.POST.get('btitle')
+        # id = request.POST.get('id')
+        bcontent = request.POST.get('bcontent')
+        bfile = request.FILES.get('bfile')
+        # old_file = request.POST.get('old_file')
+        qs = Board.objects.get(bno=bno)
+        qs.btitle = btitle
+        qs.id = id
+        qs.bcontent = bcontent
+        if bfile:
+            qs.bfile = bfile
+
+        qs.save()
+        
         context = {'temp':2, 'bno':bno}
         return render(request, 'bwrite.html',context)
         
