@@ -8,8 +8,6 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 
-
-
 </head>
 <body>
 <!-- HEADER -->
@@ -40,19 +38,39 @@
         <div id="cht"><canvas id="myChart"></canvas></div>
     </div>
     <script>
+        // console.log('{{id_list}}');
+        // console.log('{{bhit_list}}');
+
+        function chartBtnAjax(){
+            alert('ajax으로 데이터 가져오기');
+            $.ajax({
+                url:'/board/chart_data/',
+                type:"post",
+                headers:{'X-CSRFToken':'{{csrf_token}}'},
+                data:{},
+                datatype:'json',
+                success:function(){
+                    console.log('확인 : ', data);
+                    alert('성공')
+                },
+                error:function(){
+                    alert('실패');
+                }
+
+            }); // ajax 
+        }
+        
         function chartBtn(){
             alert('차트그래프를 가져옵니다.');
-            console.log('{{id_list}}');
-            console.log('{{bhit_list}}');
             // 차트그래프------------------------------------------
             const ctx = document.getElementById('myChart');
             new Chart(ctx, {
             type: 'bar',
             data: {
-                labels: ['1번', '2번', '3번', '4번', '5번', '6번'],
+                labels: [1,2,3,4,5,6],
                 datasets: [{
                 label: '# of Votes',
-                data: [12, 19, 3, 5, 2, 3],
+                data: [10,20,30,40,50,60],
                 borderWidth: 1
                 }]
             },

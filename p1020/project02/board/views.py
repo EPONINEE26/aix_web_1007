@@ -6,16 +6,30 @@ from django.conf.urls.static import static
 import os
 from django.core.paginator import Paginator
 from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 
 # 차트그래프
 def chart(request):
+    # id_list = ['aaa','bbb','ccc','ddd','eee','fff']
+    qs = Board.objects.all().order_by('bno')[:6]
+    # qs_value = list(qs.values())
+    
+    # id_list = [1,2,3,4,5,6]
+    # bhit_list = [19,20,21,26,40,70]
+    # print(qs.values)
+    # context = {'id_list':id_list,'bhit_list':bhit_list,}
+    return render(request, 'chart.html')
+
+
+# ajax 페이지로 이동 
+# @csrf_exemp : csrf_token 예외처리
+def chart_data(request):
     id_list = ['aaa','bbb','ccc','ddd','eee','fff']
     bhit_list = [19,20,21,26,40,70]
-    context = {'id_list':id_list,'bhit_list':bhit_list}
-    return render(request, 'chart.html',context)
-
-
-def chart_data(request):
+    data = {'id_list':id_list, 'bhit_list':bhit_list}
+    
+    # db에서 가져와서 차트그래프 그리기 
+    
     return JsonResponse(data)
 
 
