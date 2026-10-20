@@ -33,8 +33,8 @@ def chart_data(request):
     return JsonResponse(data)
 
 
-# 게시글 리스트 
-# GET :페이지열기, POST: 검색
+# 게시글 리스트 # 하단넘버링
+# GET - 페이지열기, POST - 검색부분
 def blist(request):
     if request.method == 'GET':
         qs = Board.objects.all().order_by('-bgroup','bstep')
@@ -57,6 +57,7 @@ def blist(request):
             qs = Board.objects.filter\
                 (Q(btitle__contains=search_word) | Q(bcontent__contains=search_word)   )\
                 .order_by('-bgroup','bstep')
+
                 
             # 번호가 30번 이상이거나 조회수가 50이상인 것 검색    
             # qs = Board.objects.filter(Q(bno__gte = 30)|Q(bhit__lte=50).order_by('-bgroup','bstep'))   
