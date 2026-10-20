@@ -5,13 +5,47 @@ from django.conf import settings
 from django.conf.urls.static import static
 import os
 from member.models import Member
-
+from django.core.paginator import Paginator
 
 # 게시글 리스트 
+# 하단넘버링 
 def blist(request):
-    qs = Board.objects.all().order_by('-bgroup','bstep')
-    context = {'list':qs} # id가 memeber로 저장됨. 
-    return render(request, 'blist.html',context)
+    if request.method=="GET":
+        qs = Board.objects.all().order_by('-bgroup','bstep')
+        paginator = Paginator(qs,2) # 5개씩 가져오라는 의미 (필요한 개수만큼 가져옴)
+        # 현재페이지가 필요함
+        page = int(request.GET.get('page',1)) # 5페이지가 넘어오면 5페이지 그 값으로 하고 없으면 1페이지로 하겠다는 의미
+        p_qs = paginator.get_page(page)   
+        context = {'list':p_qs,'page':page} # id가 memeber로 저장됨. 
+        return render(request, 'blist.html',context)
+    elif request.method=="POST":
+        category = request.POST.get('category')
+        search_word = request.POST.get('search_word')
+                
+        # qs = Board.objects.all().order_by('-bgroup','bstep')
+        # btitle에서만 검색
+        if category == 'btitle':
+            qs = Board.objects.filter(btitle__contains=search_word).order_by('-bgroup','bstep') 
+        elif category == 'bcontent':
+            qs = Board.objects.filter(btitle__contains=search_word).order_by('-bgroup','bstep') 
+        else:
+            qs = Board.objects.filter \
+                (Q(btitle__contains=search_word) | Q(bcontent__contains=search_word) ).order_by('-bgroup','bstep')         
+            
+            
+        paginator = Paginator(qs,3) # 필요한 개수만큼 가져옴
+        # 현재페이지가 필요함
+        page = int(request.GET.get('page',1)) # 5페이지가 넘어오면 5페이지 그 값으로 하고 없으면 1페이지로 하겠다는 의미
+        p_qs = paginator.get_page(page)   
+        context = {'list':p_qs,'page':page} # id가 memeber로 저장됨. 
+        return render(request, 'blist.html',context)
+
+
+
+
+
+
+
 
 # GET : 페이지 열기, POST : 저장
 def bwrite(request):
@@ -41,6 +75,7 @@ def bwrite(request):
 
 # 게시글 상세보기 
 def bview(request,bno):
+    page = int(request.GET.get('page',1))
     # board 1개 검색 
     qs = Board.objects.get(bno=bno)
     # qs.bhit = qs.bhit+1
@@ -68,7 +103,7 @@ def bview(request,bno):
     next_qs = Board.objects.filter(Q(bgroup__gt=qs.bgroup,bstep__gte=qs.bstep) |\
                 Q(bgroup=qs.bgroup,bstep__lt=qs.bstep)).order_by('-bgroup','bstep').first()     
     
-    context = {'board':qs,'pre_board':pre_qs, 'next_board':next_qs}
+    context = {'board':qs,'pre_board':pre_qs, 'next_board':next_qs,'page':page}
     return render(request, 'bview.html',context)
 
 # 게시글 삭제
@@ -115,8 +150,28 @@ def bupdate(request,bno):
         return render(request, 'bwrite.html',context)
     
 # 답변달기
+# GET : 페이지열기, POST: 게시글저장 
 def breply(request,bno):
-    qs = Board.objects.get(bno=bno)
-    context = {'board':qs}
-    return render(request, 'breply.html',context)
+    if request.method=="GET":
+        qs = Board.objects.get(bno=bno)
+        context = {'board':qs}
+        return render(request, 'breply.html',context)
+    elif request.method=="POST":
+        bgroup = request.POST.get('bgroup') # 같은 그룹핑
+        bstep = int(request.POST.get('bstep')) # 순서 - 문자열
+        bindent = int(request.POST.get('bindent')) # 들여쓰기 (쓴 답글 들여쓰기) - 문자열
+        btitle = request.POST.get('btitle')  # 제목 
+        bcontent = request.POST.get('bcontent') # 내용 
+        bfile = request.FILES.get('bfile') # 파일 
+        id = request.session['session_id']
+        member = Member.objects.get(id=id)
         
+        # 같은그룹 부모보다 큰 bstep을 1씩 증가시켜줌 
+        r_qs = Board.objects.filter(bgroup=bgroup,bstep__gt=bstep)
+        r_qs.update(bstep=F('bstep')+1)# F함수 : 검색된 항목의 필드를 가져와서 모두 적용시켜줌
+        # 답변달기 저장
+        Board.objects.create(bgroup=bgroup, member=member, bstep=bstep+1, bindent=bindent+1, btitle=btitle, bcontent=bcontent, bfile=bfile)
+        
+        context = {'temp':1}
+        return render(request, 'breply.html',context)
+                
