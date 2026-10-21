@@ -19,8 +19,9 @@ def chart_data(request):
     # qs = Board.objects.all().values()         # [] 리스트형태
     # 제목에 사진글자가 포함되어 있거나 또는 조회수가 70이상인것을 검색하시오.
     search = request.POST.get('search',0)
-    print('search : ',search)
-    qs = Board.objects.filter(Q(btitle__contains='사진') |\
+    word = request.POST.get('word',0)
+    print('search : ',search, 'word : ',word)
+    qs = Board.objects.filter(Q(btitle__contains=word) |\
                             Q(bhit__gte=search) ).values()[:6] # [] 리스트형태
     print("데이터 확인 : ",qs)
     print("데이터 개수 : ",qs.count())

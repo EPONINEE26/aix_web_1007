@@ -1,0 +1,12 @@
+from django.urls import path,include
+from . import views
+
+app_name='screen'
+urlpatterns = [
+    
+    path('chart/', views.chart, name='chart'),
+    path('chart_data/', views.chart_data, name='chart_data'),
+    
+    
+    
+]

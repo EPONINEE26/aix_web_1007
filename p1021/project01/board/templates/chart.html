@@ -36,6 +36,7 @@
 <script>
     function chartBtn(){
         let search = $("#search").val();
+        let word = $("#word").val();
         id_list = []
         bhit_list = []
         alert('차트를 생성합니다.');
@@ -43,7 +44,7 @@
             url:'/board/chart_data/',                // 보내는링크주소
             type:'post',                             // 전송방식
             headers:{'X-CSRFToken':'{{csrf_token}}'},// csrf_token
-            data:{'search':search},                                 // html에서 django보내는 데이터
+            data:{'search':search,'word':word},                                 // html에서 django보내는 데이터
             dataType:'json',                         // 받는데이터 타입 : json,xml,text
             success:function(data){                  // 성공시 전달데이터를 data변수 추가
                 alert('성공');
@@ -94,7 +95,8 @@
 </script>
 <main>
     <div class="container">
-        <input type='text' name='search' id='search' placeholder='검색어를 입력하세요.'><br>
+        <input type='text' name='search' id='search' placeholder='조회수 범위를 입력하세요.'><br>
+        <input type='text' name='word' id='word' placeholder='검색어를 입력하세요.'><br>
         <button type='button' onclick='chartBtn()'>그래프그리기</button>
         <br><br>
         <!-- 그래프 그려지는 태그 -->
