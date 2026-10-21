@@ -12,4 +12,5 @@ urlpatterns = [
     path('bview/<int:bno>/', views.bview, name='bview'),
     path('bupdate/<int:bno>/', views.bupdate, name='bupdate'),
     path('bdelete/<int:bno>/', views.bdelete, name='bdelete'),
+    path('breply/<int:bno>/', views.breply, name='breply'),
 ]
