@@ -14,3 +14,6 @@ urlpatterns = [
     path('bdelete/<int:bno>/', views.bdelete, name='bdelete'),
     path('breply/<int:bno>/', views.breply, name='breply'),
 ]
+
+
+

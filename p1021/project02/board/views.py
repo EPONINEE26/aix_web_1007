@@ -54,7 +54,12 @@ def bupdate(request, bno):
 
 
 # 답변달기
+# 답변달기
 def breply(request, bno):
+    # 수정부분: 로그인하지 않은 사용자는 로그인 페이지로 이동
+    if not request.session.get('session_id'):
+        return redirect('/member/login/')
+
     if request.method == 'GET':
         board = Board.objects.get(bno=bno)
         context = {'board': board}
@@ -69,20 +74,30 @@ def breply(request, bno):
         bcontent = request.POST.get('bcontent')
         bfile = request.FILES.get('bfile')
 
-        member = Member.objects.get(id=request.session['session_id'])
+        member = Member.objects.get(
+            id=request.session['session_id']
+        )
 
-        Board.objects.filter(bgroup=bgroup, bstep__gt=bstep).update(bstep=F('bstep') + 1)
+        Board.objects.filter(
+            bgroup=bgroup,
+            bstep__gt=bstep
+        ).update(
+            bstep=F('bstep') + 1
+        )
 
+        # 수정부분: member 필드가 아닌 Board의 id 필드에 저장
         Board.objects.create(
-            member=member, 
-            btitle=btitle, 
+            id=member.id,
+            btitle=btitle,
             bcontent=bcontent,
-            bgroup=bgroup, 
-            bstep=bstep + 1, 
-            bindent=bindent + 1, 
+            bgroup=bgroup,
+            bstep=bstep + 1,
+            bindent=bindent + 1,
             bfile=bfile,
         )
+
         return redirect('/board/blist/')
+
 
 
 # 게시글 리스트
