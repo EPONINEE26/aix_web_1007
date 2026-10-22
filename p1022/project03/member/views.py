@@ -51,7 +51,7 @@ def email(request):
     s.sendmail(sendEmail,email,msg.as_string()) 
     s.close() 
 
-    # request.session['session_ekey'] = e_key
+    request.session['session_e_key'] = e_key
     context = {'e_key':e_key}
     # ------------------------------------------------------------------------------------
     return JsonResponse(context)
@@ -60,6 +60,7 @@ def email(request):
 def ekey(request): 
     ekey = request.POST.get('ekey', '')
     s_key = request.session['session_e_key'] 
+    print(f'데이터 비교 : {ekey},{s_key}')
     if ekey == s_key:
         context = {'temp':1}
     else:
@@ -79,7 +80,7 @@ def step01(request):
 
 
 def step02(request):
-    return render(request, 'step01.html')
+    return render(request, 'step02.html')
 
 
 
