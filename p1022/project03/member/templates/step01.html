@@ -281,10 +281,10 @@ $(document).ready(function() {
 							const ekey = $("#ekey").val();
 							console.log('인증키입력 : ',ekey);
 							$.ajax({
-								url:'/member/ekey/',                // 보내는링크주소
-								type:'post',                             // 전송방식
-								headers:{'X-CSRFToken':'{{csrf_token}}'},// csrf_token
-								data:{'ekey':ekey},                     // html에서 django보내는 데이터
+								url:'/member/ekey/',                
+								type:'post',                             
+								headers:{'X-CSRFToken':'{{csrf_token}}'},
+								data:{'ekey':ekey},                     
 								dataType:'json', 
 								success:function(data){ 
 									if(data.temp=='1'){
